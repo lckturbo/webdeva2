@@ -1,0 +1,315 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background: #f4f4f4;
+    overflow: hidden; /* Prevent scrolling while video is playing */
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+    animation: fadeIn 2s;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1em;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+section {
+    padding: 2em;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.5s;
+    margin: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.box {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 8px;
+    background: #e9e9e9;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.inline-box-normal {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+}
+
+.inline-box {
+    display: inline-block;
+    width: 45%;
+    margin-bottom: 1em;
+}
+
+.inline-box.center {
+    width: 100%;
+    text-align: center;
+}
+
+.inline-box-normal img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Centered content */
+.centered-content {
+    text-align: center;
+}
+
+.click-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.click-box-header {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold; /* Maintain bold font */
+}
+
+.click-box-content {
+    padding: 10px;
+    display: none; /* Hide content by default */
+    font-weight: normal; /* Reset font weight for content */
+}
+
+/* Ensure the game canvas scales properly */
+.canvas-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 50%; /* Aspect ratio of 800x400 */
+    height: 0;
+    overflow: hidden;
+}
+
+.canvas-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Center canvas */
+canvas.centered-content {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive design */
+@media (max-width: 800px) {
+    nav ul li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+    
+    section {
+        padding: 1em;
+    }
+
+    .inline-box {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+#video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    overflow: hidden; /* Ensure no overflow */
+}
+
+#intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* Ensure the video scales properly */
+.yt-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%; /* Ensure it doesn't overflow the container */
+    background: black;
+    width: 100%; /* Make the container take full width */
+}
+
+.yt-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the iframe take full width of the container */
+    height: 100%; /* Make the iframe take full height of the container */
+}
+
+.image-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adjust the gap between images and text as needed */
+}
+
+.history-image {
+    width: 20%;
+    height: auto;
+	border-radius: 8px;
+}
+
+.text-content {
+    max-width: 500px; /* Adjust the max width as needed */
+    margin: 0 20px; /* Adjust the margin as needed to ensure spacing around the text */
+    text-align: center;
+}
+
+.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Adjust the margin to create space between the text and image */
+}
+
+.center-image {
+    max-width: 100%;
+    height: auto;
+	border-radius: 8px;
+}
