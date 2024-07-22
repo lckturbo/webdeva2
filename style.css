@@ -136,6 +136,37 @@ canvas.centered-content {
     margin: 0 auto;
 }
 
+/* Style the message box */
+.message-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 10; /* Ensure it appears above the canvas */
+}
+
+.message-box p {
+    margin: 0 0 10px;
+}
+
+.message-box button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.message-box button:hover {
+    background-color: #45a049;
+}
+
 /* Responsive design */
 @media (max-width: 800px) {
     nav ul li {

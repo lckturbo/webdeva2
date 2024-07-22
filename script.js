@@ -1,6 +1,15 @@
 const videoContainer = document.getElementById('video-container');
 const introVideo = document.getElementById('intro-video');
 
+// Play background music on page load if allowed
+window.addEventListener('load', () => {
+    // Check if the music can be played
+    backgroundMusic.play().catch(() => {
+        // Autoplay was prevented, music will start on user interaction
+        console.log('Background music autoplay was prevented, will play on user interaction.');
+    });
+});
+
 introVideo.addEventListener('ended', () => {
 	videoContainer.style.animation = 'fadeOut 2s forwards';
 	
@@ -71,12 +80,15 @@ function startGame() {
     const canvasContainer = document.querySelector('.canvas-container');
     const gameCanvas = document.getElementById('gameCanvas');
     const ctx = gameCanvas.getContext('2d');
+    const messageBox = document.querySelector('.message-box');
     let playerScore = 0;
     let aiScore = 0;
+    const winningScore = 5; // Win condition
 
     // Show the canvas container
     canvasContainer.style.display = 'block';
     startButton.style.display = 'none';
+    messageBox.style.display = 'none';
 
     let ballX = gameCanvas.width / 2;
     let ballY = gameCanvas.height / 2;
@@ -101,6 +113,32 @@ function startGame() {
         keys[e.key] = false;
     });
 
+    // Mobile controls
+    gameCanvas.addEventListener('touchstart', handleTouchStart);
+    gameCanvas.addEventListener('touchmove', handleTouchMove);
+
+    function handleTouchStart(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const touchY = touch.clientY - gameCanvas.getBoundingClientRect().top;
+        if (touchY < paddle1Y) {
+            paddle1Y -= paddleSpeed;
+        } else if (touchY > paddle1Y + paddleHeight) {
+            paddle1Y += paddleSpeed;
+        }
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const touchY = touch.clientY - gameCanvas.getBoundingClientRect().top;
+        if (touchY < paddle1Y) {
+            paddle1Y -= paddleSpeed;
+        } else if (touchY > paddle1Y + paddleHeight) {
+            paddle1Y += paddleSpeed;
+        }
+    }
+
     function draw() {
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
 
@@ -109,7 +147,7 @@ function startGame() {
         ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
         ctx.fillStyle = 'white';
         ctx.fillRect(gameCanvas.width / 2 - 2, 0, 4, gameCanvas.height);
-        ctx.fillRect(0, gameCanvas.height / 2 - 2, gameCanvas.width, 4); // Corrected horizontal line
+        ctx.fillRect(0, gameCanvas.height / 2 - 2, gameCanvas.width, 4);
 
         // Draw ball
         ctx.fillStyle = 'blue';
@@ -126,11 +164,13 @@ function startGame() {
         if (ballX + ballRadius > gameCanvas.width) {
             playerScore++; // Player gets point
             playCheerSound();
+            checkWin();
             resetBall();
         }
         if (ballX - ballRadius < 0) {
             aiScore++; // AI gets point
             playCheerSound();
+            checkWin();
             resetBall();
         }
         if (ballY + ballRadius > gameCanvas.height || ballY - ballRadius < 0) {
@@ -194,9 +234,31 @@ function startGame() {
         cheerSound.play();
     }
 
+    function checkWin() {
+        if (playerScore >= winningScore || aiScore >= winningScore) {
+            const winner = playerScore >= winningScore ? 'Player' : 'AI';
+            displayMessage(`${winner} Wins!`, true);
+        }
+    }
+
+    function displayMessage(message, showPlayAgain) {
+        messageBox.innerHTML = `<p>${message}</p>`;
+        if (showPlayAgain) {
+            messageBox.innerHTML += '<button onclick="restartGame()">Play Again</button>';
+        }
+        messageBox.style.display = 'block';
+    }
+
+    window.restartGame = function() {
+        playerScore = 0;
+        aiScore = 0;
+        resetBall();
+        messageBox.style.display = 'none';
+        startButton.style.display = 'none'; // Hide start button when restarting
+    };
+
     draw();
 }
-
 
 // Slideshow 1 for Equipment
 let slideIndex1 = 1;
