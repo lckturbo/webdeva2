@@ -65,16 +65,12 @@ footer {
     justify-content: space-between;
 }
 
-.inline-box-normal {
-    display: inline-block;
-    width: 45%;
-    vertical-align: top;
-}
 
 .inline-box {
     display: inline-block;
     width: 45%;
     margin-bottom: 1em;
+	vertical-align: top;
 }
 
 .inline-box.center {
@@ -82,12 +78,6 @@ footer {
     text-align: center;
 }
 
-.inline-box-normal img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-/* Centered content */
 .centered-content {
     text-align: center;
 }
@@ -212,6 +202,57 @@ canvas.centered-content {
     object-fit: cover;
 }
 
+/* Ensure the video scales properly */
+.yt-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%; /* Ensure it doesn't overflow the container */
+    background: black;
+    width: 100%; /* Make the container take full width */
+}
+
+.yt-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the iframe take full width of the container */
+    height: 100%; /* Make the iframe take full height of the container */
+}
+
+.image-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adjust the gap between images and text as needed */
+}
+
+.history-image {
+    width: 20%;
+    height: auto;
+	border-radius: 8px;
+}
+
+.text-content {
+    max-width: 500px; /* Adjust the max width as needed */
+    margin: 0 20px; /* Adjust the margin as needed to ensure spacing around the text */
+    text-align: center;
+}
+
+.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Adjust the margin to create space between the text and image */
+}
+
+.center-image {
+    max-width: 100%;
+    height: auto;
+	border-radius: 8px;
+}
+
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
@@ -294,53 +335,72 @@ canvas.centered-content {
   to {opacity: 1}
 }
 
-/* Ensure the video scales properly */
-.yt-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%; /* Ensure it doesn't overflow the container */
-    background: black;
-    width: 100%; /* Make the container take full width */
+/* Floating button */
+.fx-social-float {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    position: fixed;
+    top: 200px;
+    right: 0;
+    z-index: 999;
 }
 
-.yt-container iframe {
-    position: absolute;
+.fx-social-float button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.fx-social-float img {
+    width: 40px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: light background */
+}
+
+/* QR Code Modal */
+.qr-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Make the iframe take full width of the container */
-    height: 100%; /* Make the iframe take full height of the container */
-}
-
-.image-box {
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    z-index: 1000;
     align-items: center;
-    gap: 20px; /* Adjust the gap between images and text as needed */
+    justify-content: center;
 }
 
-.history-image {
-    width: 20%;
-    height: auto;
-	border-radius: 8px;
-}
-
-.text-content {
-    max-width: 500px; /* Adjust the max width as needed */
-    margin: 0 20px; /* Adjust the margin as needed to ensure spacing around the text */
+.qr-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
     text-align: center;
 }
 
-.image-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px; /* Adjust the margin to create space between the text and image */
-}
-
-.center-image {
+.qr-modal-content img {
     max-width: 100%;
     height: auto;
-	border-radius: 8px;
+    border-radius: 8px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* QR code image styling */
+#qrCodeImage {
+    width: 50%; /* Ensures the image fits within the modal */
+    height: auto;
 }

@@ -1,23 +1,43 @@
 const videoContainer = document.getElementById('video-container');
 const introVideo = document.getElementById('intro-video');
+let userInteracted = false;
 
-// Play background music on page load if allowed
-window.addEventListener('load', () => {
-    // Check if the music can be played
-    backgroundMusic.play().catch(() => {
-        // Autoplay was prevented, music will start on user interaction
-        console.log('Background music autoplay was prevented, will play on user interaction.');
-    });
-});
+// Function to handle actions after user interaction
+function handleUserInteraction() {
+    if (!userInteracted) {
+        // User interaction detected
+        userInteracted = true;
+
+        // Play background music
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        if (backgroundMusic) {
+            backgroundMusic.play().catch(error => {
+                console.error('Error playing background music:', error);
+            });
+        }
+
+        // Fade out the video container
+        videoContainer.style.animation = 'fadeOut 2s forwards';
+        
+        // Allow scrolling after the video ends
+        document.body.style.overflow = 'auto';
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+        
+        // Remove video container from DOM after fade out
+        videoContainer.addEventListener('animationend', () => {
+            videoContainer.remove();
+        });
+        
+        // Remove click event listener after first interaction
+        document.removeEventListener('click', handleUserInteraction);
+    }
+}
 
 introVideo.addEventListener('ended', () => {
-	videoContainer.style.animation = 'fadeOut 2s forwards';
-	
-	// Allow scrolling after the video ends
-	document.body.style.overflow = 'auto';
-	
-	// Scroll to top
-	window.scrollTo(0, 0);
+    // Add click event listener to the document for user interaction
+    document.addEventListener('click', handleUserInteraction);
 });
 
 // Add click event listener to video for skipping
@@ -32,16 +52,15 @@ introVideo.addEventListener('click', () => {
 		// Scroll to top
 		window.scrollTo(0, 0);
 		
+		// Play background music
+		const backgroundMusic = document.getElementById('backgroundMusic');
+		backgroundMusic.play();
+		
 		// Remove video container from DOM after fade out
 		videoContainer.addEventListener('animationend', () => {
 			videoContainer.remove();
 		});
 	}
-});
-
-// Remove video container from DOM after fade out
-videoContainer.addEventListener('animationend', () => {
-	videoContainer.remove();
 });
 
 // Smooth scroll functionality
@@ -58,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
+
+
 // Animation on scroll
 window.addEventListener('scroll', () => {
 	const sections = document.querySelectorAll('section');
@@ -73,6 +94,7 @@ window.addEventListener('scroll', () => {
 		}
 	});
 });
+
 
 // Interactive Game
 function startGame() {
@@ -275,17 +297,12 @@ function currentSlide1(n) {
 function showSlides1(n) {
   let i;
   let slides = document.getElementsByClassName("mySlides1");
-  let dots = document.getElementsByClassName("dot1");
   if (n > slides.length) {slideIndex1 = 1}
   if (n < 1) {slideIndex1 = slides.length}
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
   slides[slideIndex1-1].style.display = "block";
-  dots[slideIndex1-1].className += " active";
 }
 
 // Slideshow 2 for Footwork
@@ -316,3 +333,18 @@ function toggleContent(id) {
     var element = document.getElementById(id);
     element.style.display = (element.style.display === 'block') ? 'none' : 'block';
 }
+
+document.getElementById('qrCodeButton').addEventListener('click', function() {
+    document.getElementById('qrCodeModal').style.display = 'flex';
+});
+
+document.querySelector('.qr-modal .close').addEventListener('click', function() {
+    document.getElementById('qrCodeModal').style.display = 'none';
+});
+
+// Close the modal if the user clicks anywhere outside of the modal content
+window.onclick = function(event) {
+    if (event.target === document.getElementById('qrCodeModal')) {
+        document.getElementById('qrCodeModal').style.display = 'none';
+    }
+};
