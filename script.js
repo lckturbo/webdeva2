@@ -96,8 +96,11 @@ window.addEventListener('scroll', () => {
 });
 
 let animationFrameId; // Global variable to store the animation frame ID
+let isGameRunning = false; // Flag to control game state
 
 function startGame() {
+    if (isGameRunning) return; // Prevent starting a new game if one is already running
+
     const startButton = document.querySelector('button[onclick="startGame()"]');
     const canvasContainer = document.querySelector('.canvas-container');
     const gameCanvas = document.getElementById('gameCanvas');
@@ -235,13 +238,16 @@ function startGame() {
         ctx.fillText('Player: ' + playerScore, 50, 50);
         ctx.fillText('AI: ' + aiScore, gameCanvas.width - 100, 50);
 
-        animationFrameId = requestAnimationFrame(draw);
+        if (isGameRunning) {
+            animationFrameId = requestAnimationFrame(draw);
+        }
     }
 
     function resetBall() {
         ballX = gameCanvas.width / 2;
         ballY = gameCanvas.height / 2;
-        ballSpeedX = -ballSpeedX;
+        ballSpeedX = 5;
+        ballSpeedY = 5;
     }
 
     function playHitSound() {
@@ -260,6 +266,7 @@ function startGame() {
         if (playerScore >= winningScore || aiScore >= winningScore) {
             const winner = playerScore >= winningScore ? 'Player' : 'AI';
             displayMessage(`${winner} Wins!`, true);
+            isGameRunning = false; // Stop the game
             cancelAnimationFrame(animationFrameId); // Stop the game loop
         }
     }
@@ -278,11 +285,15 @@ function startGame() {
         resetBall();
         messageBox.style.display = 'none';
         startButton.style.display = 'none'; // Hide start button when restarting
+        isGameRunning = true; // Start the game
         animationFrameId = requestAnimationFrame(draw); // Restart the game loop
     };
 
+    // Start the game
+    isGameRunning = true;
     draw();
 }
+
 // Slideshow 1 for Equipment
 let slideIndex1 = 1;
 showSlides1(slideIndex1);

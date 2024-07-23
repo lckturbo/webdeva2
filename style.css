@@ -5,9 +5,21 @@ body {
     padding: 0;
     line-height: 1.6;
     background: #f4f4f4;
-    overflow: hidden; /* Prevent scrolling while video is playing */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto; /* Allow vertical scrolling */
 }
 
+/* Ensure containers don't cause overflow */
+.container, .section, .box {
+    overflow: hidden;
+}
+
+/* Apply box-sizing globally */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Header styles */
 header {
     background: #333;
     color: #fff;
@@ -32,6 +44,7 @@ nav ul li a {
     text-decoration: none;
 }
 
+/* Section styles */
 section {
     padding: 2em;
     border-bottom: 1px solid #ccc;
@@ -44,6 +57,7 @@ section {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Footer styles */
 footer {
     background: #333;
     color: #fff;
@@ -51,10 +65,12 @@ footer {
     padding: 1em 0;
 }
 
+/* Iframe styles */
 iframe {
     border: none;
-  }
+}
 
+/* Box styles */
 .box {
     border: 1px solid #ccc;
     padding: 1em;
@@ -63,18 +79,19 @@ iframe {
     background: #e9e9e9;
 }
 
+/* Flex container styles */
 .flex-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-
+/* Inline box styles */
 .inline-box {
     display: inline-block;
     width: 45%;
     margin-bottom: 1em;
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .inline-box.center {
@@ -86,6 +103,7 @@ iframe {
     text-align: center;
 }
 
+/* Click box styles */
 .click-box {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -107,7 +125,7 @@ iframe {
     font-weight: normal; /* Reset font weight for content */
 }
 
-/* Ensure the game canvas scales properly */
+/* Canvas container styles */
 .canvas-container {
     position: relative;
     width: 100%;
@@ -130,7 +148,7 @@ canvas.centered-content {
     margin: 0 auto;
 }
 
-/* Style the message box */
+/* Message box styles */
 .message-box {
     position: absolute;
     top: 50%;
@@ -190,6 +208,7 @@ canvas.centered-content {
     to { opacity: 0; }
 }
 
+/* Video container styles */
 #video-container {
     position: fixed;
     top: 0;
@@ -206,7 +225,7 @@ canvas.centered-content {
     object-fit: cover;
 }
 
-/* Ensure the video scales properly */
+/* YouTube container styles */
 .yt-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -225,6 +244,7 @@ canvas.centered-content {
     height: 100%; /* Make the iframe take full height of the container */
 }
 
+/* Image box styles */
 .image-box {
     display: flex;
     justify-content: center;
@@ -235,7 +255,7 @@ canvas.centered-content {
 .history-image {
     width: 20%;
     height: auto;
-	border-radius: 8px;
+    border-radius: 8px;
 }
 
 .text-content {
@@ -254,89 +274,89 @@ canvas.centered-content {
 .center-image {
     max-width: 100%;
     height: auto;
-	border-radius: 8px;
+    border-radius: 8px;
 }
 
-/* Slideshow container */
+/* Slideshow container styles */
 .slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin-left: auto;
-  margin-right: 0;
+    max-width: 1000px;
+    position: relative;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 /* Next & previous buttons */
 .prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  margin-top: -22px;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+    right: 0;
+    border-radius: 3px 0 0 3px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.8);
 }
 
 /* Caption text */
 .text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
 }
 
 /* Number text */
 .numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
 }
 
 /* The dots/bullets/indicators */
 .dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+    background-color: #717171;
 }
 
 /* Fading animation */
 .fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
 
 @keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+    from {opacity: .4}
+    to {opacity: 1}
 }
 
 /* Floating button */
