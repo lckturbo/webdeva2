@@ -401,6 +401,6 @@ canvas.centered-content {
 
 /* QR code image styling */
 #qrCodeImage {
-    width: 50%; /* Ensures the image fits within the modal */
+    width: 100%; /* Ensures the image fits within the modal */
     height: auto;
 }

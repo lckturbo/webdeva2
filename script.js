@@ -95,8 +95,8 @@ window.addEventListener('scroll', () => {
 	});
 });
 
+let animationFrameId; // Global variable to store the animation frame ID
 
-// Interactive Game
 function startGame() {
     const startButton = document.querySelector('button[onclick="startGame()"]');
     const canvasContainer = document.querySelector('.canvas-container');
@@ -235,7 +235,7 @@ function startGame() {
         ctx.fillText('Player: ' + playerScore, 50, 50);
         ctx.fillText('AI: ' + aiScore, gameCanvas.width - 100, 50);
 
-        requestAnimationFrame(draw);
+        animationFrameId = requestAnimationFrame(draw);
     }
 
     function resetBall() {
@@ -260,6 +260,7 @@ function startGame() {
         if (playerScore >= winningScore || aiScore >= winningScore) {
             const winner = playerScore >= winningScore ? 'Player' : 'AI';
             displayMessage(`${winner} Wins!`, true);
+            cancelAnimationFrame(animationFrameId); // Stop the game loop
         }
     }
 
@@ -277,11 +278,11 @@ function startGame() {
         resetBall();
         messageBox.style.display = 'none';
         startButton.style.display = 'none'; // Hide start button when restarting
+        animationFrameId = requestAnimationFrame(draw); // Restart the game loop
     };
 
     draw();
 }
-
 // Slideshow 1 for Equipment
 let slideIndex1 = 1;
 showSlides1(slideIndex1);
